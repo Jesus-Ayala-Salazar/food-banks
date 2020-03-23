@@ -21,15 +21,9 @@
           bounds: [[-128.8, 23.6], [-65.4, 50.2]],
           style: 'mapbox://styles/mapbox/dark-v10'
         });
+        this.addGeocoder();
         // adds geojson sources to map
         this.map.on('load', this.addLayer);
-        /* initializes Geocoder Search box*/
-        this.map.addControl(
-          new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            countries: 'us',
-            mapboxgl: mapboxgl
-          }));
         // event listeners for showing popups when clicking main layer
         this.map.on('click', 'main-layer',  (e) => this.addPopup(e));
         this.map.on('click', 'main-layer',  (e) => this.map.flyTo({
@@ -38,8 +32,6 @@
         }));
         this.map.on('mouseenter', 'main-layer', () => {this.map.getCanvas().style.cursor = 'pointer';});
         this.map.on('mouseleave', 'main-layer', () => {this.map.getCanvas().style.cursor = '';});
-
-
       },
       addLayer: function () {
         this.map.addLayer({
@@ -72,6 +64,18 @@
           .setLngLat(coordinates)
           .setText(name)
           .addTo(this.map);
+      },
+      addGeocoder: function () {
+        /* initializes Geocoder Search box*/
+        let geocoder = new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          countries: 'us',
+          mapboxgl: mapboxgl,
+          marker: false,
+        });
+        // add result event listener
+        geocoder.on('result', (result) => this.map.flyTo({center: result.result.center, zoom: 10}));
+        this.map.addControl(geocoder);
       }
     }
   }
