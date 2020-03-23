@@ -30,6 +30,7 @@
             countries: 'us',
             mapboxgl: mapboxgl
           }));
+        // event listeners for showing popups when clicking main layer
         this.map.on('click', 'main-layer',  (e) => this.addPopup(e));
         this.map.on('click', 'main-layer',  (e) => this.map.flyTo({
           center: e.features[0].geometry.coordinates,
