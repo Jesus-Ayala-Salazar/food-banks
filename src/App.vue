@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header/>
-    <Map/>
-    <Results/>
+    <Map />
+    <Results v-b-modal/>
     <SearchBox/>
   </div>
 </template>
