@@ -1,15 +1,16 @@
 <template>
   <div id="app">
     <Header/>
-    <Map />
-    <Results v-b-modal/>
-    <SearchBox/>
+    <b-container fluid>
+        <b-row>
+            <b-col><Map/></b-col><b-col v-show="false"><Results /></b-col>
+        </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
 import Map from './components/Map.vue'
-import SearchBox from './components/SearchBox'
 import Results from './components/Results'
 import Header from './components/Header.vue'
 
@@ -18,7 +19,6 @@ export default {
   components: {
     Header,
     Map,
-    SearchBox,
     Results
   }
 }

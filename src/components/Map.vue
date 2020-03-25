@@ -1,5 +1,5 @@
 <template>
-        <div fluid="sm" id="map" v-bind:style="styleObj"></div>
+        <div id="map" v-bind:style="styleObj"></div>
 </template>
 
 <style>
@@ -12,6 +12,8 @@
 
   export default {
     name: 'Map',
+    components: {
+    },
     data() {
       return {
         styleObj: {
@@ -56,20 +58,21 @@
         this.map.addControl(new DefaultControl(this.defaultView), 'top-left');
         this.addGeocoder();
         // adds geojson sources to map
-        this.map.on('load', this.addLayer);
+        this.map.on('load', this.addSources);
         // event listeners for showing popups when clicking main layer
         this.map.on('click', 'main-layer', (e) => this.handleClick(e));
         this.map.on('mouseenter', 'main-layer', () => {this.map.getCanvas().style.cursor = 'pointer';});
         this.map.on('mouseleave', 'main-layer', () => {this.map.getCanvas().style.cursor = '';});
       },
-      addLayer: function () {
+      addSources: function () {
+        this.map.addSource('food-banks', {
+            data: require('../assets/sample'),
+            type: 'geojson'
+          });
         this.map.addLayer({
           id: 'main-layer',
           type: 'circle',
-          source: {
-            data: require('../assets/sample'),
-            type: 'geojson',
-          },
+          source: 'food-banks',
           paint: {
             'circle-opacity': 0.5,
             'circle-radius': 5,
@@ -80,8 +83,12 @@
         });
       },
       addPopup: function (e) {
-        let coordinates = e.features[0].geometry.coordinates.slice();
-        let name = e.features[0].properties.name;
+        let feature = e.features[0];
+        let coordinates = feature.geometry.coordinates;
+        let name = feature.properties.name;
+        let hours = feature.properties.hours;
+        let website = feature.properties.website;
+        let html = `<strong>${name}</strong><br><span>${hours}</span><br><a href="${website}">${website}</a>`;
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -91,7 +98,7 @@
         }
         new mapboxgl.Popup()
           .setLngLat(coordinates)
-          .setText(name)
+          .setHTML(html)
           .addTo(this.map);
       },
       addGeocoder: function () {
