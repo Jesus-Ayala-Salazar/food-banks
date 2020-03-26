@@ -1,17 +1,25 @@
 <template>
   <div id="app">
     <Header/>
-    <b-container fluid>
-        <b-row>
-            <b-col><Map/></b-col><b-col v-show="false"><Results /></b-col>
-        </b-row>
+    <b-container fluid >
+      <b-row>
+        <b-col :sm="isResultVisible ? 8 : 12">
+          <Map id="map" v-on:result-clicked="showResult"/>
+        </b-col>
+        <b-col>
+          <b-collapse id="result"
+                      v-model="isResultVisible">
+            <Result v-bind:result="result" />
+          </b-collapse>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
 
 <script>
 import Map from './components/Map.vue'
-import Results from './components/Results'
+import Result from './components/Result'
 import Header from './components/Header.vue'
 
 export default {
@@ -19,7 +27,19 @@ export default {
   components: {
     Header,
     Map,
-    Results
+    Result
+  },
+  data() {
+    return {
+      result: undefined,
+      isResultVisible: false
+    }
+  },
+  methods: {
+    showResult: function (feature) {
+      this.isResultVisible = true;
+      this.result = feature;
+    }
   }
 }
 </script>
