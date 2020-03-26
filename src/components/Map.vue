@@ -32,7 +32,7 @@ export default {
       mapboxgl.accessToken = 'pk.eyJ1IjoiamFheWFsYSIsImEiOiJjazgxMnIxbTgwNmtsM2xwNG85MXNybTZvIn0.jgVIhoWGvlCIU5TQoEgnvA';
       this.map = new mapboxgl.Map({
         container: 'map',
-        bounds: [[-128.8, 23.6], [-65.4, 50.2]],
+        bounds: [[-127, 15], [-65, 60]],
         style: 'mapbox://styles/mapbox/dark-v10'
       });
       let nav = new mapboxgl.NavigationControl({showCompass: false});
@@ -57,11 +57,11 @@ export default {
         type: 'circle',
         source: 'food-banks',
         paint: {
-          'circle-opacity': 0.5,
-          'circle-radius': 5,
+          'circle-opacity': 0.7,
+          'circle-radius': 7,
           'circle-stroke-color': '#fff',
           'circle-stroke-width': 1,
-          'circle-color': '#7bfc37'
+          'circle-color': '#ff7cf7'
         }
       });
     },
@@ -106,6 +106,7 @@ export default {
       this.addPopup(e);
       let feature = e.features[0];
       this.map.flyTo({center: feature.geometry.coordinates, zoom: 10});
+      this.map.resize();
       this.$emit('result-clicked', feature.properties);
     },
     handleResult: function (res) {
