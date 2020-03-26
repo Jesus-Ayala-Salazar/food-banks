@@ -2,7 +2,7 @@
     <div>
         <b-navbar fixed="top" variant="danger" type="dark">
             <b-navbar-brand tag="h1" class="mb-0">
-              <BIconAlertTriangleFill/>  Food Banks
+              <BIconAlertTriangleFill/>  COVID-19 Food Banks
             </b-navbar-brand>
         </b-navbar>
     </div>

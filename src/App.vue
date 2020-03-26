@@ -14,7 +14,7 @@
         </b-col>
       </b-row>
       <b-row>
-        <footer class="footer bg-danger">
+        <footer class="footer bg-danger text-light">
           <div class="container">
             <Footer/>
           </div>

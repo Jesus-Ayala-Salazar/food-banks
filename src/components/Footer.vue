@@ -1,7 +1,7 @@
 <template>
   <div>
     <BIconAlertTriangleFill/>
-    <span >Food Banks</span>
+    <span>  COVID-19 Food Banks</span>
   </div>
 </template>
 
