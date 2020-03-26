@@ -1,4 +1,9 @@
-# covid-site
+# COVID-19 Food Banks
+
+## Web application displaying food banks offering services during COVID-19 quarantine 
+
+## Uses Mapbox GL JS API to visualize food bank database
+## Implemented with Vue.js
 
 ## Project setup
 ```
