@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-navbar fixed="top" variant="danger" type="dark">
+        <b-navbar id="header" fixed="top"  type="dark">
             <b-navbar-brand tag="h1" class="mb-0">
               <BIconAlertTriangleFill/>  COVID-19 Food Banks
             </b-navbar-brand>
@@ -16,3 +16,9 @@
     }
   }
 </script>
+
+<style scoped>
+  #header{
+    background-color: #df0232;
+  }
+</style>

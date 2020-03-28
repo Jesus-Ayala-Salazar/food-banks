@@ -14,7 +14,7 @@
         </b-col>
       </b-row>
       <b-row>
-        <footer class="footer bg-danger text-light">
+        <footer class="footer text-light">
           <div class="container">
             <Footer/>
           </div>
@@ -73,6 +73,7 @@ body {
   margin-bottom: 60px;
 }
 .footer {
+  background-color: #df0232;
   position: absolute;
   bottom: 0;
   width: 100%;

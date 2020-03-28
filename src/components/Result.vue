@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-jumbotron :header="result.name" header-level="5"
-                 :lead="`${result.address} ${result.city} ${result.state} ${result.zip}`">
+                 :lead="`${result.street} ${result.city} ${result.state} ${result.zip}`">
+      <p>{{result.notes}}</p>
       <p>{{result.hours}}</p>
       <p>{{result.phone}}</p>
       <p>{{result.email}}</p>
@@ -26,7 +27,9 @@ export default {
       default: function () {
         return {
           name: '',
-          address: '',
+          notes: '',
+          district: '',
+          street: '',
           city: '',
           state: '',
           zip: '',

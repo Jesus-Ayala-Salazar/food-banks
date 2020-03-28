@@ -16,6 +16,12 @@ export default {
   },
   data() {
     return {
+      MAIN_SOURCE: 'main',
+      SCHOOL_SOURCE: 'schools',
+      RESTAURANT_SOURCE: 'restaurants',
+      MAIN_LAYER: 'main-layer',
+      SCHOOL_LAYER: 'school-layer',
+      RESTAURANT_LAYER: 'restaurant-layer',
       map: undefined,
       styleObj: {
         width: '100%',
@@ -42,26 +48,67 @@ export default {
       this.addGeocoder();
       // adds geojson sources to map
       this.map.on('load', this.addSources);
-      // event listeners for showing popups when clicking main layer
-      this.map.on('click', 'main-layer', (e) => this.handleClick(e));
-      this.map.on('mouseenter', 'main-layer', () => {this.map.getCanvas().style.cursor = 'pointer';});
-      this.map.on('mouseleave', 'main-layer', () => {this.map.getCanvas().style.cursor = '';});
+      // event listeners for showing popups when clicking layers
+      this.map.on('click', this.MAIN_LAYER, (e) => this.handleClick(e));
+      this.map.on('mouseenter', this.MAIN_LAYER, () => {this.map.getCanvas().style.cursor = 'pointer';});
+      this.map.on('mouseleave', this.MAIN_LAYER, () => {this.map.getCanvas().style.cursor = '';});
+      this.map.on('click', this.SCHOOL_LAYER, (e) => this.handleClick(e));
+      this.map.on('mouseenter', this.SCHOOL_LAYER, () => {this.map.getCanvas().style.cursor = 'pointer';});
+      this.map.on('mouseleave', this.SCHOOL_LAYER, () => {this.map.getCanvas().style.cursor = '';});
+      this.map.on('click', this.RESTAURANT_LAYER, (e) => this.handleClick(e));
+      this.map.on('mouseenter', this.RESTAURANT_LAYER, () => {this.map.getCanvas().style.cursor = 'pointer';});
+      this.map.on('mouseleave', this.RESTAURANT_LAYER, () => {this.map.getCanvas().style.cursor = '';});
     },
     addSources: function () {
-      this.map.addSource('food-banks', {
-          data: require('../assets/sample'),
+      // add main source
+      this.map.addSource(this.MAIN_SOURCE, {
+          data: require('../assets/main-geo'),
           type: 'geojson'
         });
       this.map.addLayer({
-        id: 'main-layer',
+        id: this.MAIN_LAYER,
         type: 'circle',
-        source: 'food-banks',
+        source: this.MAIN_SOURCE,
         paint: {
           'circle-opacity': 0.7,
           'circle-radius': 7,
           'circle-stroke-color': '#fff',
           'circle-stroke-width': 1,
-          'circle-color': '#ff7cf7'
+          'circle-color': '#ff2541'
+        }
+      });
+      // add school sources
+      this.map.addSource(this.SCHOOL_SOURCE, {
+        data: require('../assets/schools-geo'),
+        type: 'geojson'
+      });
+      this.map.addLayer({
+        id: this.SCHOOL_LAYER,
+        type: 'circle',
+        source: this.SCHOOL_SOURCE,
+        paint: {
+          'circle-opacity': 0.7,
+          'circle-radius': 7,
+          'circle-stroke-color': '#fff',
+          'circle-stroke-width': 1,
+          'circle-color': '#b335ff'
+        }
+      });
+      // add restaurant sources
+      this.map.addSource(this.RESTAURANT_SOURCE, {
+        data: require('../assets/restaurants-geo'),
+        type: 'geojson'
+      });
+      this.map.addLayer({
+        id: this.RESTAURANT_LAYER,
+        type: 'circle',
+        source: this.RESTAURANT_SOURCE,
+        paint: {
+          'circle-opacity': 0.7,
+          'circle-radius': 7,
+          'circle-stroke-color': '#fff',
+          'circle-stroke-width': 1,
+          'circle-color': '#96ff0f'
         }
       });
     },
