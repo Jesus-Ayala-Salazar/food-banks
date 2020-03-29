@@ -4,9 +4,9 @@
     <b-container fluid >
       <b-row>
         <b-col :sm="isResultVisible ? 8 : 12">
-          <Map  v-on:result-clicked="showResult"/>
+          <Map id="map" :style="styleObj" v-on:result-clicked="showResult"/>
         </b-col>
-        <b-col>
+        <b-col align-self="center">
           <b-collapse id="result"
                       v-model="isResultVisible">
             <Result v-bind:result="result" />
@@ -41,13 +41,21 @@ export default {
   data() {
     return {
       result: undefined,
-      isResultVisible: false
+      isResultVisible: false,
+      styleObj: {
+        width: '100%',
+        height: '92vh'
+      }
     }
   },
   methods: {
     showResult: function (feature) {
       this.isResultVisible = true;
       this.result = feature;
+      // responsive design for mobile devices
+      let mqList = window.matchMedia('(max-width: 600px)');
+      if (mqList.matches)
+        this.styleObj.height = '50vh';
     }
   }
 }

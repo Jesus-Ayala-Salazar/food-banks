@@ -1,5 +1,5 @@
 <template>
-        <div id="map" v-bind:style="styleObj"></div>
+        <div id="map" ></div>
 </template>
 
 <style>
@@ -22,11 +22,7 @@ export default {
       MAIN_LAYER: 'main-layer',
       SCHOOL_LAYER: 'school-layer',
       RESTAURANT_LAYER: 'restaurant-layer',
-      map: undefined,
-      styleObj: {
-        width: '100%',
-        height: '600px'
-      }
+      map: undefined
     }
   },
   mounted() {
@@ -118,7 +114,7 @@ export default {
       let name = feature.properties.name;
       let hours = feature.properties.hours;
       let website = feature.properties.website;
-      let html = `<strong>${name}</strong><br><span>${hours}</span><br><a href="${website}">${website}</a>`;
+      let html = `<strong>${name}</strong><br><span>${hours}</span><br><a href="${website}">${website.slice(0, 25)}</a>`;
 
       // Ensure that if the map is zoomed out such that multiple
       // copies of the feature are visible, the popup appears
