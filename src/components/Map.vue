@@ -1,5 +1,5 @@
 <template>
-  <div id="map"  v-bind:class="{clicked: isClicked, notClicked: !isClicked}" ></div>
+        <div id="map" v-bind:style="styleObj"></div>
 </template>
 
 <style>
@@ -23,10 +23,9 @@ export default {
       SCHOOL_LAYER: 'school-layer',
       RESTAURANT_LAYER: 'restaurant-layer',
       map: undefined,
-      isClicked: false,
       styleObj: {
         width: '100%',
-        height: '95vh'
+        height: '600px'
       }
     }
   },
@@ -119,7 +118,7 @@ export default {
       let name = feature.properties.name;
       let hours = feature.properties.hours;
       let website = feature.properties.website;
-      let html = `<strong>${name}</strong><br><span>${hours}</span><br><a href="${website}">${website.slice(0, 25)}</a>`;
+      let html = `<strong>${name}</strong><br><span>${hours}</span><br><a href="${website}">${website}</a>`;
 
       // Ensure that if the map is zoomed out such that multiple
       // copies of the feature are visible, the popup appears
@@ -145,8 +144,8 @@ export default {
       this.map.addControl(geocoder);      // add geocoder to map
     },
     resizeContainer: function () {
-      // this.styleObj.height = '50vh';
-      this.map.getContainer().style.height = '50vh';
+      this.styleObj.width = '100%';
+      this.map.getContainer().style.width = '100%';
       this.map.resize();
     },
     handleClick: function (e) {
@@ -154,8 +153,7 @@ export default {
       this.addPopup(e);
       let feature = e.features[0];
       this.map.flyTo({center: feature.geometry.coordinates, zoom: 10});
-      this.isClicked = true;
-      window.setTimeout(()=>this.map.resize(), 500);
+      this.map.resize();
       this.$emit('result-clicked', feature.properties);
     },
     handleResult: function (res) {
@@ -171,26 +169,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  @media screen and (max-width: 600px) {
-    #map.clicked {
-      width: 100%;
-      height: 50vh;
-    }
-    #map.notClicked {
-      width: 100%;
-      height: 92vh;
-    }
-  }
-  @media screen and (min-width: 601px) {
-    #map.clicked {
-      width: 100%;
-      height: 92vh;
-    }
-    #map.notClicked {
-      width: 100%;
-      height: 92vh;
-    }
-  }
-</style>
