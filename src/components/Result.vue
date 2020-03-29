@@ -8,8 +8,12 @@
       <p>{{result.email}}</p>
       <hr class="my-3">
       <b-button v-if="result['ig-handle'].length !== 0"
-                variant="info"
+                style="background-color: mediumorchid; border-color: mediumorchid"
                 :href="`https://www.instagram.com/${result['ig-handle'].slice(1)}`" target="_blank">Instagram</b-button>
+      <b-button v-if="result.twitter.length !== 0"
+                style="background-color: #12c9ff; border-color: #12c9ff"
+                class="ml-3"
+                :href="`https://www.twitter.com/${result.twitter.slice(1)}`" target="_blank">Twitter</b-button>
       <b-button v-if="result.website.length !== 0"
                 class="ml-3"
                 variant="primary"
@@ -36,6 +40,7 @@ export default {
           hours: '',
           website: '',
           igHandle: '',
+          twitter: '',
           link: '',
           phone: '',
           email: ''
