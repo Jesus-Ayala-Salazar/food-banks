@@ -16,6 +16,10 @@
                 style="background-color: deepskyblue; border-color: #12c9ff"
                 class="ml-3"
                 :href="`https://www.twitter.com/${result.twitter.slice(1)}`" target="_blank">Twitter</b-button>
+      <b-button v-if="typeof(result.facebook) !== 'undefined' && result.facebook.length !== 0"
+                class="ml-3"
+                variant="primary"
+                :href="result.facebook" target="_blank">Facebook</b-button>
       <b-button v-if="result.website.length !== 0"
                 class="ml-3"
                 variant="primary"
@@ -43,6 +47,7 @@ export default {
           website: '',
           igHandle: '',
           twitter: '',
+          facebook: '',
           link: '',
           phone: '',
           email: ''
