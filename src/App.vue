@@ -14,12 +14,17 @@
         </b-col>
       </b-row>
       <b-row>
-        <footer class="footer text-light">
-          <div class="container">
-            <Footer/>
-          </div>
-        </footer>
+        <div>
+
+        </div>
       </b-row>
+<!--      <b-row>-->
+<!--        <footer class="footer text-light">-->
+<!--          <div class="container">-->
+<!--            <Footer/>-->
+<!--          </div>-->
+<!--        </footer>-->
+<!--      </b-row>-->
     </b-container>
   </div>
 </template>
@@ -28,12 +33,12 @@
 import Map from './components/Map.vue'
 import Result from './components/Result'
 import Header from './components/Header.vue'
-import Footer from './components/Footer'
+// import Footer from './components/Footer'
 
 export default {
   name: 'App',
   components: {
-    Footer,
+    // Footer,
     Header,
     Map,
     Result
@@ -44,7 +49,7 @@ export default {
       isResultVisible: false,
       styleObj: {
         width: '100%',
-        height: '92vh'
+        height: '90vh'
       }
     }
   },

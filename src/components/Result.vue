@@ -62,7 +62,6 @@ export default {
     styleObj: function () {
       // responsive design for mobile devices
       let mqList = window.matchMedia('(min-width: 600px)');
-      // let obj = {};
       if (mqList.matches)
         return {height: '69vh'};
       return {}

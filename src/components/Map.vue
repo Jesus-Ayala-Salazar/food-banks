@@ -1,5 +1,21 @@
 <template>
-        <div id="map" ></div>
+  <div>
+    <div id="map"></div>
+    <div class='map-overlay' id='legend'>
+      <div>
+        <span class="legend-key" style="background-color: #ff2541;"></span>
+        <span>Food Banks</span>
+      </div>
+      <div>
+        <span class="legend-key" style="background-color: #96ff0f;"></span>
+        <span>Seniors</span>
+      </div>
+      <div>
+        <span class="legend-key" style="background-color: #b335ff;"></span>
+        <span>Students</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style>
@@ -18,10 +34,10 @@ export default {
     return {
       MAIN_SOURCE: 'main',
       SCHOOL_SOURCE: 'schools',
-      RESTAURANT_SOURCE: 'restaurants',
+      SENIORS_SOURCE: 'seniors',
       MAIN_LAYER: 'main-layer',
       SCHOOL_LAYER: 'school-layer',
-      RESTAURANT_LAYER: 'restaurant-layer',
+      SENIORS_LAYER: 'seniors-layer',
       map: undefined
     }
   },
@@ -51,9 +67,9 @@ export default {
       this.map.on('click', this.SCHOOL_LAYER, (e) => this.handleClick(e));
       this.map.on('mouseenter', this.SCHOOL_LAYER, () => {this.map.getCanvas().style.cursor = 'pointer';});
       this.map.on('mouseleave', this.SCHOOL_LAYER, () => {this.map.getCanvas().style.cursor = '';});
-      this.map.on('click', this.RESTAURANT_LAYER, (e) => this.handleClick(e));
-      this.map.on('mouseenter', this.RESTAURANT_LAYER, () => {this.map.getCanvas().style.cursor = 'pointer';});
-      this.map.on('mouseleave', this.RESTAURANT_LAYER, () => {this.map.getCanvas().style.cursor = '';});
+      this.map.on('click', this.SENIORS_LAYER, (e) => this.handleClick(e));
+      this.map.on('mouseenter', this.SENIORS_LAYER, () => {this.map.getCanvas().style.cursor = 'pointer';});
+      this.map.on('mouseleave', this.SENIORS_LAYER, () => {this.map.getCanvas().style.cursor = '';});
     },
     addSources: function () {
       // add main source
@@ -90,15 +106,15 @@ export default {
           'circle-color': '#b335ff'
         }
       });
-      // add restaurant sources
-      this.map.addSource(this.RESTAURANT_SOURCE, {
-        data: require('../assets/restaurants-geo'),
+      // add senior sources
+      this.map.addSource(this.SENIORS_SOURCE, {
+        data: require('../assets/seniors-geo'),
         type: 'geojson'
       });
       this.map.addLayer({
-        id: this.RESTAURANT_LAYER,
+        id: this.SENIORS_LAYER,
         type: 'circle',
-        source: this.RESTAURANT_SOURCE,
+        source: this.SENIORS_SOURCE,
         paint: {
           'circle-opacity': 0.7,
           'circle-radius': 7,
@@ -114,7 +130,7 @@ export default {
       let name = feature.properties.name;
       let hours = feature.properties.hours;
       let website = feature.properties.website;
-      let html = `<strong>${name}</strong><br><span>${hours}</span><br><a href="${website}">${website.slice(0, 25)}</a>`;
+      let html = `<strong>${name}</strong><br><span>${hours}</span><br><a href="${website}" target="_blank">${website.slice(0, 25)}</a>`;
 
       // Ensure that if the map is zoomed out such that multiple
       // copies of the feature are visible, the popup appears
@@ -140,7 +156,6 @@ export default {
       this.map.addControl(geocoder);      // add geocoder to map
     },
     resizeContainer: function () {
-      this.styleObj.width = '100%';
       this.map.getContainer().style.width = '100%';
       this.map.resize();
     },
@@ -157,11 +172,36 @@ export default {
       this.map.flyTo({center: res.result.center, zoom: 10});
     },
     defaultView: function () {
-      this.styleObj.width = '100%';
-      this.map.getContainer().style.width = '100%';
-      this.map.resize();
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
     }
   }
 }
 </script>
+
+<style scoped>
+  .map-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.8);
+    margin-right: 20px;
+    font-family: Arial, sans-serif;
+    overflow: auto;
+    border-radius: 3px;
+
+    padding: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    line-height: 18px;
+    height: 80px;
+    margin-bottom: 40px;
+    width: 100px;
+  }
+
+  .legend-key {
+    display: inline-block;
+    border-radius: 20px;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+  }
+</style>
