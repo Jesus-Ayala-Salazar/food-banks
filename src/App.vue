@@ -1,7 +1,7 @@
 <template>
-  <div id="app" >
+  <div id="app">
     <Header/>
-    <b-container fluid >
+    <b-container fluid>
       <b-row>
         <b-col :sm="isResultVisible ? 8 : 12">
           <Map id="map" :style="styleObj" v-on:result-clicked="showResult"/>
@@ -13,19 +13,10 @@
           </b-collapse>
         </b-col>
       </b-row>
-      <b-row>
-        <div>
-
-        </div>
-      </b-row>
-<!--      <b-row>-->
-<!--        <footer class="footer text-light">-->
-<!--          <div class="container">-->
-<!--            <Footer/>-->
-<!--          </div>-->
-<!--        </footer>-->
-<!--      </b-row>-->
     </b-container>
+    <footer class="footer">
+      <Footer/>
+    </footer>
   </div>
 </template>
 
@@ -33,12 +24,12 @@
 import Map from './components/Map.vue'
 import Result from './components/Result'
 import Header from './components/Header.vue'
-// import Footer from './components/Footer'
+import Footer from './components/Footer'
 
 export default {
   name: 'App',
   components: {
-    // Footer,
+    Footer,
     Header,
     Map,
     Result
@@ -58,8 +49,7 @@ export default {
       this.isResultVisible = true;
       this.result = feature;
       // responsive design for mobile devices
-      let mqList = window.matchMedia('(max-width: 600px)');
-      if (mqList.matches)
+      if (window.matchMedia('(max-width: 600px)').matches)
         this.styleObj.height = '50vh';
     }
   }
@@ -74,24 +64,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  background-color: #df0232;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
 }
 </style>

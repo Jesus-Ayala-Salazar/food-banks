@@ -188,6 +188,7 @@ export default {
     font-family: Arial, sans-serif;
     overflow: auto;
     border-radius: 3px;
+    z-index: 1;
 
     padding: 10px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
