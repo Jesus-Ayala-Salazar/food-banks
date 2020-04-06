@@ -32,6 +32,7 @@ export default {
   },
   data() {
     return {
+      ZOOM_LEVEL: 13,
       MAIN_SOURCE: 'main',
       SCHOOL_SOURCE: 'schools',
       SENIORS_SOURCE: 'seniors',
@@ -53,7 +54,6 @@ export default {
         bounds: [[-127, 15], [-65, 60]],
         style: 'mapbox://styles/mapbox/dark-v10'
       });
-      this.map.scrollZoom.disable();
       let nav = new mapboxgl.NavigationControl({showCompass: false});
       this.map.addControl(nav, 'top-left');
 
@@ -164,13 +164,13 @@ export default {
       // this.resizeContainer();
       this.addPopup(e);
       let feature = e.features[0];
-      this.map.flyTo({center: feature.geometry.coordinates, zoom: 10});
+      this.map.flyTo({center: feature.geometry.coordinates, zoom: this.ZOOM_LEVEL});
       this.map.resize();
       this.$emit('result-clicked', feature.properties);
     },
     handleResult: function (res) {
       // this.resizeContainer();
-      this.map.flyTo({center: res.result.center, zoom: 10});
+      this.map.flyTo({center: res.result.center, zoom: this.ZOOM_LEVEL});
     },
     defaultView: function () {
       this.map.fitBounds([[-127, 15], [-65, 60]]);
