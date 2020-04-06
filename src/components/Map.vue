@@ -53,6 +53,7 @@ export default {
         bounds: [[-127, 15], [-65, 60]],
         style: 'mapbox://styles/mapbox/dark-v10'
       });
+      this.map.scrollZoom.disable();
       let nav = new mapboxgl.NavigationControl({showCompass: false});
       this.map.addControl(nav, 'top-left');
 
@@ -172,7 +173,8 @@ export default {
       this.map.flyTo({center: res.result.center, zoom: 10});
     },
     defaultView: function () {
-      this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
+      this.map.fitBounds([[-127, 15], [-65, 60]]);
+      this.map.resize();
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-jumbotron :style="styleObj"  :header="result.name" header-level="5"
+    <b-jumbotron   :header="result.name" header-level="5"
                  :lead="`${result.street} ${result.city} ${result.state} ${result.zip}`">
       <p>{{result.notes}}</p>
       <p>{{result.hours}}</p>
