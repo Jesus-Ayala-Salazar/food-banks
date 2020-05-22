@@ -1,6 +1,6 @@
 <template>
   <div class="footer muted-text">
-    <BIconAlertTriangleFill/><span>   Last updated 04/22/2020</span><br>
+    <BIconAlertTriangleFill/><span>   Last updated 05/22/2020</span><br>
     <div>
       <b-button v-b-modal.more-info size="sm" variant="outline-light">More Information</b-button>
       <b-modal id="more-info"
